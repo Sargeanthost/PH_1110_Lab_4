@@ -1,0 +1,1 @@
+Needs to be compiled with the `-shell-escape` argument for `minted` package to work.

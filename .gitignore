@@ -1,0 +1,6 @@
+.idea/
+*.iml
+*.docx.pdf
+/src/_minted-lab_4_medina_carlos
+/src/out/*
+/out/_minted-lab_4_medina_carlos
