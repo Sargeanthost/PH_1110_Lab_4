@@ -12,6 +12,7 @@
 \usepackage{graphicx, caption}
 \usepackage{subcaption}
 \usepackage{float}
+\usepackage{booktabs}
 \usepackage[separate-uncertainty=true, multi-part-units=repeat]{siunitx}
 \usepackage{enumerate}
 \usepackage[outputdir=../out]{minted}
@@ -22,6 +23,8 @@
 \graphicspath{{../imgs/}}
 \newcommand{\mps}[1]{\SI{#1}{\meter\per\second}}
 \newcommand{\impls}[1]{\SI{#1}{\newton\second}}
+\newcommand{\kg}[1]{\SI{#1}{\kilo\gram}}
+\newcommand{\mm}[1]{\SI{#1}{\kilo\gram\meter\per\second}}
 
 
 % Document
@@ -38,8 +41,8 @@
         \begin{minted}{python}
         ### 1: velocity
         v_Ai =0.3283 #initial velocity
-        dv_Ai =0.01595 #uncertainty of velocity
-        v_Af =0.2892 #final velocity
+        dv_Ai =0.0159 #uncertainty of velocity
+        v_Af =-0.2890 #final velocity
         dv_Af =0.0028 #uncertainty of "
         delta_vA =v_Af -v_Ai #change in velocity
         dvA =dv_Ai +dv_Af #propogation of uncertainty for velocity
@@ -60,7 +63,7 @@
         print("change in momentum:",delta_p,"±",dp," kg * m/s")
         #print the change in momentum and its uncertainty
 
-        #>> change in momentum: -0.019452249999999977 ± 0.009389874999999999  kg * m/s
+        #>> change in momentum: -0.30710675 ± 0.00652118  kg * m/s
         \end{minted}
     \end{enumerate}
 
@@ -68,8 +71,13 @@
     \section{Writing}
     \begin{enumerate}
         [1)]
-        \item I made sure to not go too fast and to make sure everything was good
-        \item ~
+        \item Firstly, you must set the force sensor to the \SI{10}{\kilo\newton} switch setting, and the motion sensor to the cart setting.
+        Then, you start collection for 3 time trials, each of which has an increased velocity.
+        Note, do not fully compress the force sensor spring.
+        Next, after you have saved the force reading and velocity reading for each of the three time trials, you will analysis them as follows.
+        For the force sensor, preform an integral fit on the parabolic region to obtain the impulse over this area.
+        For the velocity, preform a statics fit on the initial velocity, and on the final velocity.
+        \item This experiment validated the hypothesis that impulse is equal to the change in momentum, as shown by the data in Table~\ref{tab:1}.
         %slow
         \begin{figure}[H]
             \begin{subfigure}[t]{0.5\textwidth}
@@ -115,5 +123,33 @@
             \end{subfigure}
             \caption{Slowest trial measurements.}
         \end{figure}
+        ~
+        \begin{table}[H]
+            \centering
+            \caption{Experiment Data}
+            \label{tab:1}
+            \begin{tabular}{@{} llll @{}}
+                \toprule
+                Measurement                     &{Slow}             &{Slower}           &{Slowest}\\ \midrule
+                Impulse                         &\impls{-0.3138}    &\impls{-0.2089}    &\impls{-0.1405}\\[.4em]
+                Initial Velocity                &\mps{0.3283}       &\mps{0.2408}       &\mps{0.2051}\\[.4em]
+                Initial Velocity Uncertainty    &\mps{0.0159}       &\mps{0.0223}       &\mps{0.0151}\\[.4em]
+                Final Velocity                  &\mps{-0.2890}      &\mps{-0.1853}      &\mps{-0.1244}\\[.4em]
+                Final Velocity Uncertainty      &\mps{0.0028}       &\mps{0.0004}       &\mps{.0041}\\[.4em]
+                Mass of Cart                    &\kg{0.4975}        &\kg{0.4975}        &\kg{0.4975}\\[.4em]
+                Uncertainty of Mass of Cart     &\kg{0.0001}        &\kg{0.0001}        &\kg{0.0001}\\[.4em]
+                Change of Momentum              &\mm{-0.3071}       &\mm{-0.2119}       &\kg{-0.1639}\\[.4em]
+                Uncertainty on Momentum         &\mm{0.0065}        &\mm{0.0109}        &\mm{0.0054}\\ \bottomrule
+            \end{tabular}
+        \end{table}
+        \item %
+            \begin{enumerate}[a)]
+                \item For the slow and slower tests, the results matched within the calculated uncertainty.
+                The values were \impls{-0.3138} and \mm{-0.3071}, and \impls{-0.2089} and \mm{-0.2119} respectively.
+                For the slowest value, the impulse is \impls{-0.1405}, and the change in momentum is \kg{-0.1639} with uncertainty of \mm{0.0054}.
+                \item For the most part, the impulse equaled the change in momentum. I believe I should have redone the slowest trial,
+                as the graph was inconsistent, and the data collected doesn't match up with what should be happening.
+                \item I believe an interesting addition would be to find the spring constant of the force meter.
+            \end{enumerate}
     \end{enumerate}
 \end{document}
